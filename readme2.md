@@ -1,6 +1,7 @@
 # Panduan Penggunaan Aplikasi - Toko Kita
 
 ## Table of Contents
+- [Proses Registrasi](#proses-registrasi)
 - [Proses Login](#proses-login)
 - [Proses Tambah Data Produk (Create)](#proses-tambah-data-produk)
 - [Proses Tampil Data Produk (Read)](#proses-tampil-data-produk)
@@ -8,6 +9,13 @@
 - [Proses Hapus Data Produk (Delete)](#proses-hapus-data-produk)
 
 ---
+
+## Proses Registrasi
+
+### a. Mengisi Form Registrasi 
+Pengguna baru dapat mendaftar dengan mengisi form registrasi yang berisi Nama, Email, Password, dan Konfirmasi Password
+
+![Form Registrasi](register.png)
 
 ## Proses Login
 
@@ -56,7 +64,7 @@ Widget _buildLoginForm() {
 ```
 ### b. PopUp Berhasil/Tidak Berhasil
 Jika login berhasil, pengguna akan diarahkan ke halaman dashboard. Jika gagal, popup notifikasi akan muncul di layar yang memberitahukan kesalahan login, seperti berikut:
-![Popup berhasil](alert.png)
+![Popup berhasil](alert.jpeg)
 ![Popup gagal](gagal.png)
 
 **Kode untuk validasi dan login:**
@@ -125,10 +133,9 @@ Widget _buildAddProductForm() {
 ### b. Proses Penyimpanan ke Database
 Setelah menekan tombol Tambah Produk, data yang diinputkan akan disimpan ke dalam database menggunakan fungsi berikut.
 
-Kode untuk Proses Tambah Produk:
+**Kode untuk Proses Tambah Produk:**
 
-dart
-Salin kode
+```dart
 void _submitProduct() {
   final product = Product(
     name: _nameController.text,
@@ -146,15 +153,17 @@ void _submitProduct() {
     );
   });
 }
-Proses Tampil Data Produk
-a. Menampilkan List Produk
+```
+
+## Proses Tampil Data Produk
+### a. Menampilkan List Produk
 Pada halaman Dashboard atau List Produk, semua produk yang telah ditambahkan ditampilkan dalam bentuk list yang dapat di-scroll.
 
+![Form list produk](list.png)
 
-Kode untuk Menampilkan List Produk:
+**Kode untuk Menampilkan List Produk:**
 
-dart
-Salin kode
+```dart
 Widget _buildProductList() {
   return FutureBuilder<List<Product>>(
     future: ProductService.getProducts(),
@@ -183,15 +192,16 @@ Widget _buildProductList() {
     },
   );
 }
-Proses Ubah Data Produk
-a. Menampilkan Form Edit Produk
+```
+
+## Proses Ubah Data Produk
+### a. Menampilkan Form Edit Produk
 Pengguna dapat memilih produk yang ingin diubah dengan menekan tombol Edit pada list produk, yang akan membawa mereka ke halaman Edit Produk.
 
-
+![Form edit produk](ubah.png)
 Kode untuk Form Edit Produk:
 
-dart
-Salin kode
+```dart
 Widget _buildEditProductForm(Product product) {
   _nameController.text = product.name;
   _priceController.text = product.price.toString();
@@ -220,13 +230,14 @@ Widget _buildEditProductForm(Product product) {
     ],
   );
 }
-b. Proses Update Data ke Database
+```
+
+### b. Proses Update Data ke Database
 Setelah menekan tombol Simpan Perubahan, data produk akan diperbarui di database.
 
 Kode untuk Proses Ubah Produk:
 
-dart
-Salin kode
+```dart
 void _updateProduct(int productId) {
   final updatedProduct = Product(
     id: productId,
@@ -245,15 +256,17 @@ void _updateProduct(int productId) {
     );
   });
 }
-Proses Hapus Data Produk
-a. Menghapus Produk dari List
+```
+
+## Proses Hapus Data Produk
+### a. Menghapus Produk dari List
 Pada halaman List Produk, pengguna dapat menghapus produk dengan menekan ikon Hapus pada list item produk.
 
+![Form hapus produk](hapus.png)
 
 Kode untuk Hapus Produk:
 
-dart
-Salin kode
+```dart
 void _deleteProduct(int productId) {
   ProductService.deleteProduct(productId).then((_) {
     setState(() {
@@ -268,3 +281,4 @@ void _deleteProduct(int productId) {
     );
   });
 }
+```
